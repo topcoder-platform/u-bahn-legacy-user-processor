@@ -1,0 +1,32 @@
+{
+  "name": "identity-data-processor",
+  "version": "1.0.0",
+  "description": "Identity - Data Processor",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "lint": "standard",
+    "lint:fix": "standard --fix"
+  },
+  "author": "TCSCODER",
+  "license": "none",
+  "devDependencies": {
+    "standard": "^12.0.1",
+    "superagent": "^5.1.0"
+  },
+  "dependencies": {
+    "@hapi/joi": "^15.1.0",
+    "axios": "^0.21.1",
+    "bluebird": "^3.5.5",
+    "config": "^3.1.0",
+    "get-parameter-names": "^0.3.0",
+    "lodash": "^4.17.19",
+    "no-kafka": "^3.4.3",
+    "tc-core-library-js": "appirio-tech/tc-core-library-js.git#v2.6",
+    "topcoder-healthcheck-dropin": "^1.0.3",
+    "winston": "^3.2.1"
+  },
+  "engines": {
+    "node": "12.x"
+  }
+}
