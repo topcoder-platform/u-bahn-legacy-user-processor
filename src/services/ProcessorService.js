@@ -63,7 +63,7 @@ async function processCreate(message) {
     const userSkills = await helper.getMemberSkills(message.payload.handle, topcoderToken)
     for (const userSkill of userSkills) {
       logger.debug(`member skills is : ${JSON.stringify(userSkill)}`)
-      const skillId = await helper.getSkillId(skillProviderId, userSkill.tagName, ubahnToken)
+      const skillId = await helper.getSkillId(skillProviderId, userSkill.name, ubahnToken)
       logger.debug(`fetched v5 skill id is : ${skillId}`)
       if (skillId) {
         helper.sleep()

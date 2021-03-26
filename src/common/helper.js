@@ -205,6 +205,7 @@ async function createExternalProfile (userId, body, token) {
  * @param {String} token
  */
 async function createUserSkill (userId, skillId, metricValue, token) {
+  logger.debug(`creating skills for user ${userId}, skill ${skillId}, metric ${metricValue}`)
   await axios.post(`${config.UBAHN_API_URL}/users/${userId}/skills`, { skillId, metricValue }, { headers: { Authorization: `Bearer ${token}` } })
 }
 
