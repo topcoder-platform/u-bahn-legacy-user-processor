@@ -34,9 +34,6 @@ async function processCreate(message) {
   const handle = _.get(message, 'payload.handle', null)
 
   let userId = null
-  logger.debug(typeof topic, topic)
-  logger.debug(typeof config.BACKENDJOB_USER_SKILL_SYNC, config.BACKENDJOB_USER_SKILL_SYNC)
-  logger.debug(typeof ((topic === config.BACKENDJOB_USER_SYNC) || (topic === config.BACKENDJOB_USER_SKILL_SYNC)), ((topic === config.BACKENDJOB_USER_SYNC) || (topic === config.BACKENDJOB_USER_SKILL_SYNC)))
   if ((topic === config.BACKENDJOB_USER_SYNC) || (topic === config.BACKENDJOB_USER_SKILL_SYNC)) {
     logger.debug(`fetching v5 user ${handle}`)
     userId = await helper.getUser(handle, ubahnToken)
@@ -65,14 +62,16 @@ async function processCreate(message) {
     // topcode skill will not avaiable for recently created user
     const userSkills = await helper.getMemberSkills(message.payload.handle, topcoderToken)
     for (const userSkill of userSkills) {
-      const skillId = await helper.getSkillId(skillProviderId, userSkill.name, ubahnToken)
+      logger.debug(`member skills is : ${JSON.stringify(userSkill)}`)
+      const skillId = await helper.getSkillId(skillProviderId, userSkill.tagName, ubahnToken)
+      logger.debug(`fetched v5 skill id is : ${skillId}`)
       if (skillId) {
         helper.sleep()
         try {
           await helper.createUserSkill(userId, skillId, userSkill.score, ubahnToken)
           logger.info(`user skill: ${userSkill.name}:${userSkill.score} created`)
         } catch (error) {
-          logger.error(`user skill instert error : ${error}`)
+          logger.error(`user skill insert error : ${error}`)
         }
       } else {
         logger.error(`Cannot find skill with name ${userSkill.name} and skill provider id ${skillProviderId} in u-bahn`)
