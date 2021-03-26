@@ -34,7 +34,9 @@ async function processCreate(message) {
 
   let userId = null
   if ((topic === config.BACKENDJOB_USER_SYNC) || topic === config.BACKENDJOB_USER_SKILL_SYNC) {
+    logger.debug(`fetching v5 user ${handle}`)
     userId = await helper.getUser(message.payload.handle, ubahnToken)
+    logger.debug(`fetched v5 user ${handle} id is ${userId}`)
   }
   if (!userId || (topic === config.IDENTITY_NOTIFICATION_CREATE)) {
     userId = await helper.createUser(_.pick(message.payload, 'handle', 'firstName', 'lastName'), ubahnToken)

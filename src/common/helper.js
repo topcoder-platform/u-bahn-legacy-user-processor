@@ -65,9 +65,14 @@ async function getTopcoderToken () {
  * @param {String} token
  * @returns {Number} userId
  */
-async function createUser (body, token) {
-  const res = await axios.post(`${config.UBAHN_API_URL}/users`, body, { headers: { Authorization: `Bearer ${token}` } })
-  return res.data.id
+async function createUser(body, token) {
+  try {
+    const res = await axios.post(`${config.UBAHN_API_URL}/users`, body, { headers: { Authorization: `Bearer ${token}` } })
+    return res.data.id
+  } catch (error) {
+    logger.error(`creating v5 user error: ${error}`)
+    return null
+  }
 }
 
 /**
