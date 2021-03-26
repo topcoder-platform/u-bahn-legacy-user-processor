@@ -174,8 +174,12 @@ async function getMemberSkills (handle, token) {
  * @param {String} value
  * @param {String} token
  */
-async function createUserAttribute (userId, attributeId, value, token) {
-  await axios.post(`${config.UBAHN_API_URL}/users/${userId}/attributes`, { attributeId, value }, { headers: { Authorization: `Bearer ${token}` } })
+async function createUserAttribute(userId, attributeId, value, token) {
+  try {
+    await axios.post(`${config.UBAHN_API_URL}/users/${userId}/attributes`, { attributeId, value }, { headers: { Authorization: `Bearer ${token}` } })
+  } catch (error) {
+    logger.error(` create user ${userId} attribute ${attributeId} ${value}, error: ${error}`)
+  }
 }
 
 /**
