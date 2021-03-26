@@ -30,8 +30,8 @@ async function init() {
 async function processCreate(message) {
 
   const location = await helper.getMemberLocation(message.payload.handle, topcoderToken)
-  const topic = _.get(message, 'payload.topic')
-  const handle = _.get(message, 'payload.handle')
+  const topic = _.get(message, 'topic', null)
+  const handle = _.get(message, 'payload.handle', null)
 
   let userId = null
   if ((topic === config.BACKENDJOB_USER_SYNC) || topic === config.BACKENDJOB_USER_SKILL_SYNC) {
