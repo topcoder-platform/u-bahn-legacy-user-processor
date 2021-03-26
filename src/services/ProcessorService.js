@@ -68,7 +68,8 @@ async function processCreate(message) {
       if (skillId) {
         helper.sleep()
         try {
-          await helper.createUserSkill(userId, skillId, userSkill.score, ubahnToken)
+          logger.info(`create user skill: ${userSkill.name}: ${typeof userSkill.score} ${typeof userSkill.score.toString()}`)
+          await helper.createUserSkill(userId, skillId, userSkill.score.toString(), ubahnToken)
           logger.info(`user skill: ${userSkill.name}:${userSkill.score} created`)
         } catch (error) {
           logger.error(`user skill insert error : ${error}`)
