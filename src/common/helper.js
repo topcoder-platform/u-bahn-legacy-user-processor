@@ -124,9 +124,13 @@ async function getSkillId (skillProviderId, name, token) {
  * @param {String} handle The member handle
  */
 async function getMemberLocation (handle, token) {
+  try {
   const res = await axios.get(`${config.MEMBERS_API_URL}/${qs.escape(handle)}`, { headers: { Authorization: `Bearer ${token}` } })
   const location = _.pick(_.get(res, 'data', {}), ['homeCountryCode', 'competitionCountryCode'])
   return location.homeCountryCode || location.competitionCountryCode || 'n/a'
+  } catch(error) {
+    logger.error(`unable to get member ${handle}: ${error}`)
+  }
 }
 
 /**
@@ -154,11 +158,12 @@ async function getMemberSkills (handle, token) {
 
     return skillDetails
   } catch (error) {
+    logger.error(`unable to get member ${handle} skill: ${error}`)
     if (error.response.status === 404) {
       // No skills exist for the user
       return []
     }
-    throw error
+    //throw error
   }
 }
 
@@ -200,9 +205,14 @@ async function createUserSkill (userId, skillId, metricValue, token) {
  * @param {String} token
  * @returns {Number} userId
  */
-async function getUser (handle, token) {
-  const res = await axios.get(`${config.UBAHN_API_URL}/users?handle=${handle}`, { headers: { Authorization: `Bearer ${token}` } })
-  return _.get(res,'data[0].id', null)
+async function getUser(handle, token) {
+  try {
+    const res = await axios.get(`${config.UBAHN_API_URL}/users?handle=${handle}`, { headers: { Authorization: `Bearer ${token}` } })
+    return _.get(res, 'data[0].id', null)
+  } catch (error) {
+    logger.error(`get v5 user ${handle} error ${error}`)
+    return null
+  }
 }
 
 module.exports = {
