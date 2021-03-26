@@ -6,7 +6,7 @@ const _ = require('lodash')
 const Joi = require('@hapi/joi')
 const logger = require('../common/logger')
 const helper = require('../common/helper')
-const { config } = require('bluebird')
+const config = require('config')
 
 let ubahnToken
 let topcoderToken
