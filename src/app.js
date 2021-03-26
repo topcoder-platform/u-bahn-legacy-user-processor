@@ -71,7 +71,7 @@ const check = () => {
   return connected
 }
 
-const topics = [config.IDENTITY_NOTIFICATION_CREATE]
+const topics = [config.IDENTITY_NOTIFICATION_CREATE, config.BACKENDJOB_USER_SYNC]
 
 consumer
   .init([{

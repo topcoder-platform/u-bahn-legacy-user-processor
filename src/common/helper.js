@@ -194,6 +194,17 @@ async function createUserSkill (userId, skillId, metricValue, token) {
   await axios.post(`${config.UBAHN_API_URL}/users/${userId}/skills`, { skillId, metricValue }, { headers: { Authorization: `Bearer ${token}` } })
 }
 
+/**
+ * Get User
+ * @param {String} handle
+ * @param {String} token
+ * @returns {Number} userId
+ */
+async function getUser (handle, token) {
+  const res = await axios.get(`${config.UBAHN_API_URL}/users?handle=${handle}`, { headers: { Authorization: `Bearer ${token}` } })
+  return _.get(res,'data[0].id', null)
+}
+
 module.exports = {
   getKafkaOptions,
   sleep,
@@ -208,5 +219,6 @@ module.exports = {
   createUser,
   createUserAttribute,
   createExternalProfile,
-  createUserSkill
+  createUserSkill,
+  getUser
 }
