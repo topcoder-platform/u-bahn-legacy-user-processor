@@ -8,11 +8,20 @@ const logger = require('../common/logger')
 const helper = require('../common/helper')
 const { config } = require('bluebird')
 
-const ubahnToken = await helper.getUbahnToken()
-const topcoderToken = await helper.getTopcoderToken()
-const organizationId = await helper.getOrganizationId(ubahnToken)
-const attributes = await helper.getAttributes(ubahnToken)
-const skillProviderId = await helper.getSkillProviderId(ubahnToken)
+let ubahnToken
+let topcoderToken
+let organizationId
+let attributes
+let skillProviderId
+
+async function init() {
+  ubahnToken = await helper.getUbahnToken()
+  topcoderToken = await helper.getTopcoderToken()
+  organizationId = await helper.getOrganizationId(ubahnToken)
+  attributes = await helper.getAttributes(ubahnToken)
+  skillProviderId = await helper.getSkillProviderId(ubahnToken)
+}
+
 
 /**
  * Process identity create entity message
@@ -24,7 +33,7 @@ async function processCreate(message) {
   const topic = _.get(message, 'payload.topic')
 
   let userId = null
-  if ((topic === config.BACKENDJOB_USER_SYNC) || topic === config.BACKENDJOB_USER_SKILL_SYNC ) {
+  if ((topic === config.BACKENDJOB_USER_SYNC) || topic === config.BACKENDJOB_USER_SKILL_SYNC) {
     userId = helper.getUser(message.payload.handle, ubahnToken)
   }
   if (!userId || (topic === config.IDENTITY_NOTIFICATION_CREATE)) {
@@ -64,6 +73,8 @@ async function processCreate(message) {
     }
   }
 }
+
+init()
 
 processCreate.schema = {
   message: Joi.object().keys({
