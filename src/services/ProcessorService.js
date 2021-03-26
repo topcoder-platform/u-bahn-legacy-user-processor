@@ -39,7 +39,8 @@ async function processCreate(message) {
     userId = await helper.getUser(handle, ubahnToken)
     logger.debug(`fetched v5 user ${handle} id is ${userId}`)
   }
-  if (!userId || (topic === config.IDENTITY_NOTIFICATION_CREATE)) {
+  if ((!userId) || (topic === config.IDENTITY_NOTIFICATION_CREATE)) {
+    logger.debug(`creating user ${userId} and topic ${topic}`)
     userId = await helper.createUser(_.pick(message.payload, 'handle', 'firstName', 'lastName'), ubahnToken)
     logger.info(`user: ${message.payload.handle} created`)
     helper.sleep()
