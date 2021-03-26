@@ -34,7 +34,7 @@ async function processCreate(message) {
   const handle = _.get(message, 'payload.handle', null)
 
   let userId = null
-  if ((topic === config.BACKENDJOB_USER_SYNC) || topic === config.BACKENDJOB_USER_SKILL_SYNC) {
+  if ((topic === config.BACKENDJOB_USER_SYNC) || (topic === config.BACKENDJOB_USER_SKILL_SYNC)) {
     logger.debug(`fetching v5 user ${handle}`)
     userId = await helper.getUser(handle, ubahnToken)
     logger.debug(`fetched v5 user ${handle} id is ${userId}`)
