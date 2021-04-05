@@ -53,6 +53,7 @@ async function getUbahnToken () {
 /**
  * Function to get M2M token
  * (U-Bahn APIs only)
+ * * Unused for now. Retained for any future use
  * @returns {Promise}
  */
 async function getTopcoderToken () {
@@ -96,6 +97,7 @@ async function getAttributes (token) {
 
 /**
  * Get all skills
+ * * Unused for now. Retained for any future use
  * @param {String} token
  * @returns a map (name -> id)
  */
@@ -108,6 +110,7 @@ async function getSkillProviderId (token) {
 
 /**
  * Get the skillId
+ * * Unused for now. Retained for any future use
  * @param {String} skillProviderId
  * @param {String} name
  * @param {String} token
@@ -121,6 +124,7 @@ async function getSkillId (skillProviderId, name, token) {
 
 /**
  * Returns the member location for the member handle
+ * * Unused for now. Retained for any future use
  * @param {String} handle The member handle
  */
 async function getMemberLocation (handle, token) {
@@ -131,6 +135,7 @@ async function getMemberLocation (handle, token) {
 
 /**
  * Returns the member's skills
+ * * Unused for now. Retained for any future use
  * @param {String} handle The member's handle
  */
 async function getMemberSkills (handle, token) {
@@ -185,6 +190,7 @@ async function createExternalProfile (userId, body, token) {
 
 /**
  * Create user skill
+ * * Unused for now. Retained for any future use
  * @param {String} userId
  * @param {String} skillId
  * @param {String} metricValue

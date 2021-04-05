@@ -29,9 +29,9 @@ The following parameters can be set in config files or in env variables:
 - TOKEN_CACHE_TIME: The token cache time
 - SLEEP_TIME: The pause time between two create operations, default value: 1000 ms
 - UBAHN_API_URL: The ubahn api url, default value: 'https://api.topcoder-dev.com/v5'
-- MEMBERS_API_URL: The topcoder member api url, default value: 'https://api.topcoder-dev.com/v5/members'
+- MEMBERS_API_URL: The topcoder member api url, default value: 'https://api.topcoder-dev.com/v5/members'. Not in use anymore. Retained for any future use
 - ATTRIBUTE_GROUP_NAME: The attribute group name
-- SKILL_PROVIDER_NAME: The skill provider name
+- SKILL_PROVIDER_NAME: The skill provider name. Not in use anymore. Retained for any future use
 - ORGANIZATION_NAME: The organization name
 
 There is a `/health` endpoint that checks for the health of the app. This sets up an expressjs server and listens on the environment variable `PORT`. It's not part of the configuration file and needs to be passed as an environment variable
