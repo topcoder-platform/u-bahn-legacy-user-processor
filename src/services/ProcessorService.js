@@ -13,12 +13,9 @@ const helper = require('../common/helper')
  */
 async function processCreate (message) {
   const ubahnToken = await helper.getUbahnToken()
-  const topcoderToken = await helper.getTopcoderToken()
   const organizationId = await helper.getOrganizationId(ubahnToken)
   const attributes = await helper.getAttributes(ubahnToken)
-  const skillProviderId = await helper.getSkillProviderId(ubahnToken)
-  const location = await helper.getMemberLocation(message.payload.handle, topcoderToken)
-  const userSkills = await helper.getMemberSkills(message.payload.handle, topcoderToken)
+  const location = message.payload.country.isoAlpha3Code
 
   const userId = await helper.createUser(_.pick(message.payload, 'handle', 'firstName', 'lastName'), ubahnToken)
   logger.info(`user: ${message.payload.handle} created`)
@@ -37,16 +34,6 @@ async function processCreate (message) {
   helper.sleep()
   await helper.createUserAttribute(userId, _.get(attributes, 'location'), location, ubahnToken)
   logger.info('user attribute: location created')
-  for (const userSkill of userSkills) {
-    helper.sleep()
-    const skillId = await helper.getSkillId(skillProviderId, userSkill.name, ubahnToken)
-    if (skillId) {
-      await helper.createUserSkill(userId, skillId, userSkill.score, ubahnToken)
-      logger.info(`user skill: ${userSkill.name}:${userSkill.score} created`)
-    } else {
-      throw Error(`Cannot find skill with name ${userSkill.name} and skill provider id ${skillProviderId} in u-bahn`)
-    }
-  }
 }
 
 processCreate.schema = {
@@ -59,7 +46,10 @@ processCreate.schema = {
       id: Joi.string().required(),
       handle: Joi.string().required(),
       firstName: Joi.string().required(),
-      lastName: Joi.string().required()
+      lastName: Joi.string().required(),
+      country: Joi.object().keys({
+        isoAlpha3Code: Joi.string().required()
+      }).required().unknown(true)
     }).required().unknown(true)
   }).required().unknown(true)
 }
