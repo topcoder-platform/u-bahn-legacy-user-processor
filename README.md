@@ -1,5 +1,7 @@
 # Identity - Data Processor
 
+Creates user in u-bahn when they sign up on Topcoder. Also updates their availability status in u-bahn based on their account activation status in Topcoder
+
 ## Dependencies 
 
 - Nodejs(v12+)
