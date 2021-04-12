@@ -13,7 +13,7 @@ docker exec -it identity-data-processor_kafka /opt/kafka/bin/kafka-console-produ
 4. Write message: `{"topic":"identity.notification.create","originator":"identity-service","timestamp":"2019-07-08T00:00:00.000Z","mime-type":"application/json","payload":{"id":"10000001","modifiedBy":null,"modifiedAt":null,"createdBy":null,"createdAt":null,"handle":"theuserhandle","email":"theuserhandle@gmail.com","firstName":"User","lastName":"Member","credential":{"activationCode":"ABCDEFGHIJK","resetToken":null,"hasPassword":true},"profiles":null,"status":"U","country":{"code":"040","name":"Austria","isoAlpha2Code":"AT","isoAlpha3Code":"AUT"},"regSource":null,"utmSource":null,"utmMedium":null,"utmCampaign":null,"roles":null,"ssoLogin":false,"active":false,"profile":null,"emailActive":false}}`
 5. Watch the app console. It will show message successfully handled. The log should look like:
   ```
-  info: user: tezsachin78033 created
+  info: user: theuserhandle created
   debug: Sleeping for 1000 ms
   info: external profile: 36ed815b-3da1-49f1-a043-aaed0a4e81ad created
   debug: Sleeping for 1000 ms

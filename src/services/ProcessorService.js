@@ -6,8 +6,7 @@ const _ = require('lodash')
 const Joi = require('@hapi/joi')
 const logger = require('../common/logger')
 const helper = require('../common/helper')
-
-const MEMBER_PROFILE_URL_PREFIX = 'https://www.topcoder.com/members/'
+const config = require('config')
 
 /**
  * Process identity create entity message
@@ -60,7 +59,12 @@ async function processCreate (message, ubahnToken) {
   const userId = await helper.createUser(_.pick(message.payload, 'handle', 'firstName', 'lastName'), ubahnToken)
   logger.info(`user: ${message.payload.handle} created`)
   helper.sleep()
-  await helper.createExternalProfile(userId, { organizationId, uri: `${MEMBER_PROFILE_URL_PREFIX}${message.payload.handle}`, externalId: message.payload.id, isInactive: false }, ubahnToken)
+  await helper.createExternalProfile(userId, {
+    organizationId,
+    uri: `${config.MEMBER_PROFILE_URL_PREFIX}${message.payload.handle}`,
+    externalId: message.payload.id,
+    isInactive: !message.payload.active
+  }, ubahnToken)
   logger.info(`external profile: ${organizationId} created`)
   helper.sleep()
   await helper.createUserAttribute(userId, _.get(attributes, 'isAvailable'), message.payload.active.toString(), ubahnToken)
@@ -90,7 +94,11 @@ async function processCreate (message, ubahnToken) {
  * @param {String} ubahnToken the auth token
  */
 async function processUpdate (message, userId, ubahnToken) {
+  const organizationId = await helper.getOrganizationId(ubahnToken)
   const attributes = await helper.getAttributes(ubahnToken)
+
+  await helper.updateExternalProfile(userId, organizationId, { isInactive: !message.payload.active }, ubahnToken)
+  logger.info('user attribute: isAvailable updated')
 
   await helper.updateUserAttribute(userId, _.get(attributes, 'isAvailable'), message.payload.active.toString(), ubahnToken)
   logger.info('user attribute: isAvailable updated')

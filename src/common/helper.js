@@ -224,6 +224,17 @@ async function createExternalProfile (userId, body, token) {
 }
 
 /**
+ * Update external profile
+ * @param {String} userId
+ * @param {String} organizationId
+ * @param {Object} body
+ * @param {String} token
+ */
+async function updateExternalProfile (userId, organizationId, body, token) {
+  await axios.patch(`${config.UBAHN_API_URL}/users/${userId}/externalProfiles/${organizationId}`, body, { headers: { Authorization: `Bearer ${token}` } })
+}
+
+/**
  * Create user skill
  * * Unused for now. Retained for any future use
  * @param {String} userId
@@ -251,5 +262,6 @@ module.exports = {
   createExternalProfile,
   createUserSkill,
   getUserId,
-  updateUserAttribute
+  updateUserAttribute,
+  updateExternalProfile
 }
