@@ -47,7 +47,7 @@ const dataHandler = (messageSet, topic, partition) => Promise.each(messageSet, a
     return
   }
   try {
-    await ProcessorService.processCreate(messageJSON)
+    await ProcessorService.handle(messageJSON)
     logger.debug('Successfully processed message')
   } catch (err) {
     logger.logFullError(err)

@@ -61,6 +61,30 @@ async function getTopcoderToken () {
 }
 
 /**
+ * Retrieves the user from u-bahn using their handle
+ * Returns null if no user exists, the user id otherwise
+ * @param {String} handle The member handle
+ * @param {String} token The auth token
+ */
+async function getUserId (handle, token) {
+  const res = await axios.get(`${config.UBAHN_API_URL}/users`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    params: {
+      handle
+    }
+  })
+  const user = res.data.filter(u => u.handle === handle)[0]
+
+  if (user) {
+    return user.id
+  }
+
+  return null
+}
+
+/**
  * Create a new User
  * @param {Object} body
  * @param {String} token
@@ -179,6 +203,17 @@ async function createUserAttribute (userId, attributeId, value, token) {
 }
 
 /**
+ * Create user attribute
+ * @param {String} userId
+ * @param {String} attributeId
+ * @param {String} value
+ * @param {String} token
+ */
+async function updateUserAttribute (userId, attributeId, value, token) {
+  await axios.patch(`${config.UBAHN_API_URL}/users/${userId}/attributes/${attributeId}`, { value }, { headers: { Authorization: `Bearer ${token}` } })
+}
+
+/**
  * Create external profile
  * @param {String} userId
  * @param {Object} body
@@ -214,5 +249,7 @@ module.exports = {
   createUser,
   createUserAttribute,
   createExternalProfile,
-  createUserSkill
+  createUserSkill,
+  getUserId,
+  updateUserAttribute
 }
