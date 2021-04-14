@@ -1,5 +1,7 @@
 # Identity - Data Processor
 
+Creates user in u-bahn when they sign up on Topcoder. Also updates their availability status in u-bahn based on their account activation status in Topcoder
+
 ## Dependencies 
 
 - Nodejs(v12+)
@@ -33,6 +35,7 @@ The following parameters can be set in config files or in env variables:
 - ATTRIBUTE_GROUP_NAME: The attribute group name
 - SKILL_PROVIDER_NAME: The skill provider name. Not in use anymore. Retained for any future use
 - ORGANIZATION_NAME: The organization name
+- MEMBER_PROFILE_URL_PREFIX: The member's profile url prefix. Defaults to `'https://www.topcoder.com/members/'` - don't forget the `/` at the end
 
 There is a `/health` endpoint that checks for the health of the app. This sets up an expressjs server and listens on the environment variable `PORT`. It's not part of the configuration file and needs to be passed as an environment variable
 

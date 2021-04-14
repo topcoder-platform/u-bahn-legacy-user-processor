@@ -30,5 +30,7 @@ module.exports = {
   ORGANIZATION_NAME: process.env.ORGANIZATION_NAME,
   ATTRIBUTE_GROUP_NAME: process.env.ATTRIBUTE_GROUP_NAME,
   SKILL_PROVIDER_NAME: process.env.SKILL_PROVIDER_NAME,
-  MEMBERS_API_URL: process.env.MEMBERS_API_URL || 'https://api.topcoder-dev.com/v5/members'
+  MEMBERS_API_URL: process.env.MEMBERS_API_URL || 'https://api.topcoder-dev.com/v5/members',
+
+  MEMBER_PROFILE_URL_PREFIX: process.env.MEMBER_PROFILE_URL_PREFIX || 'https://www.topcoder.com/members/'
 }
