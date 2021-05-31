@@ -15,6 +15,7 @@ module.exports = {
   KAFKA_GROUP_ID: process.env.KAFKA_GROUP_ID || 'identity-processor',
 
   IDENTITY_NOTIFICATION_CREATE: process.env.IDENTITY_NOTIFICATION_CREATE || 'identity.notification.create',
+  USER_RECONCILATION_TOPIC: process.env.USER_RECONCILATION_TOPIC || 'legacy.sync.user',
 
   AUTH0_URL: process.env.AUTH0_URL,
   AUTH0_UBAHN_AUDIENCE: process.env.AUTH0_UBAHN_AUDIENCE,
