@@ -58,7 +58,7 @@ async function processCreate (message, ubahnToken) {
 
   const userId = await helper.createUser(_.pick(message.payload, 'handle', 'firstName', 'lastName'), ubahnToken)
   logger.info(`user: ${message.payload.handle} created`)
-  helper.sleep()
+  await helper.sleep()
   await helper.createExternalProfile(userId, {
     organizationId,
     uri: `${config.MEMBER_PROFILE_URL_PREFIX}${message.payload.handle}`,
@@ -66,16 +66,16 @@ async function processCreate (message, ubahnToken) {
     isInactive: !message.payload.active
   }, ubahnToken)
   logger.info(`external profile: ${organizationId} created`)
-  helper.sleep()
+  await helper.sleep()
   await helper.createUserAttribute(userId, _.get(attributes, 'isAvailable'), message.payload.active.toString(), ubahnToken)
   logger.info('user attribute: isAvailable created')
-  helper.sleep()
+  await helper.sleep()
   await helper.createUserAttribute(userId, _.get(attributes, 'company'), 'Topcoder', ubahnToken)
   logger.info('user attribute: company created')
-  helper.sleep()
+  await helper.sleep()
   await helper.createUserAttribute(userId, _.get(attributes, 'title'), 'Member', ubahnToken)
   logger.info('user attribute: title created')
-  helper.sleep()
+  await helper.sleep()
   await helper.createUserAttribute(userId, _.get(attributes, 'location'), location, ubahnToken)
   logger.info('user attribute: location created')
 
