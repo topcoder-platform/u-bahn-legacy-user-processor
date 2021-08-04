@@ -58,7 +58,6 @@ async function processCreate (message, ubahnToken) {
 
   const userId = await helper.createUser(_.pick(message.payload, 'handle', 'firstName', 'lastName'), ubahnToken)
   logger.info(`user: ${message.payload.handle} created`)
-  await helper.sleep()
   await helper.createExternalProfile(userId, {
     organizationId,
     uri: `${config.MEMBER_PROFILE_URL_PREFIX}${message.payload.handle}`,
