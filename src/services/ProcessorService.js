@@ -65,22 +65,22 @@ async function processCreate (message, ubahnToken) {
     isInactive: !message.payload.active
   }, ubahnToken)
   logger.info(`external profile: ${organizationId} created`)
-  await helper.sleep()
+  //await helper.sleep()
   await helper.createUserAttribute(userId, _.get(attributes, 'isAvailable'), message.payload.active.toString(), ubahnToken)
   logger.info('user attribute: isAvailable created')
-  await helper.sleep()
+  //await helper.sleep()
   await helper.createUserAttribute(userId, _.get(attributes, 'company'), 'Topcoder', ubahnToken)
   logger.info('user attribute: company created')
-  await helper.sleep()
+  //await helper.sleep()
   await helper.createUserAttribute(userId, _.get(attributes, 'title'), 'Member', ubahnToken)
   logger.info('user attribute: title created')
-  await helper.sleep()
+  //await helper.sleep()
   await helper.createUserAttribute(userId, _.get(attributes, 'location'), location, ubahnToken)
   logger.info('user attribute: location created')
 
   // Custom attribute. May or may not exist
   if (_.get(attributes, 'email')) {
-    helper.sleep()
+    //helper.sleep()
     await helper.createUserAttribute(userId, _.get(attributes, 'email'), message.payload.email, ubahnToken)
     logger.info('user attribute: email created')
   }
