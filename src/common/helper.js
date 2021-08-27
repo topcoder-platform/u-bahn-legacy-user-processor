@@ -120,33 +120,6 @@ async function getAttributes (token) {
 }
 
 /**
- * Get all skills
- * * Unused for now. Retained for any future use
- * @param {String} token
- * @returns a map (name -> id)
- */
-async function getSkillProviderId (token) {
-  const res = await axios.get(`${config.UBAHN_API_URL}/skillsProviders`, { headers: { Authorization: `Bearer ${token}` }, params: { name: config.SKILL_PROVIDER_NAME } })
-  if (res.data && res.data.length > 0) {
-    return res.data[0].id
-  }
-}
-
-/**
- * Get the skillId
- * * Unused for now. Retained for any future use
- * @param {String} skillProviderId
- * @param {String} name
- * @param {String} token
- */
-async function getSkillId (skillProviderId, name, token) {
-  const res = await axios.get(`${config.UBAHN_API_URL}/skills`, { headers: { Authorization: `Bearer ${token}` }, params: { skillProviderId, name } })
-  if (res.data && res.data.length > 0) {
-    return res.data[0].id
-  }
-}
-
-/**
  * Returns the member location for the member handle
  * * Unused for now. Retained for any future use
  * @param {String} handle The member handle
