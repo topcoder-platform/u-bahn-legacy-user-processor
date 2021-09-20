@@ -226,7 +226,6 @@ module.exports = {
   getTopcoderToken,
   getOrganizationId,
   getAttributes,
-  getSkillId,
   getMemberLocation,
   getMemberSkills,
   createUser,
