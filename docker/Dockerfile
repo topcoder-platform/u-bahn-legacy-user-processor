@@ -1,5 +1,5 @@
 # Use the base image with Node.js 8.11.3
-FROM node:12.16.3
+FROM node:12.22.11
 
 # Copy the current directory into the Docker image
 COPY . /identity-data-processor
