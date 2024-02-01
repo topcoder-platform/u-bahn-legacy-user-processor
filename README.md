@@ -1,3 +1,5 @@
+DEPRECATED 2/1/2024 https://topcoder.atlassian.net/browse/CORE-203
+
 # Identity - Data Processor
 
 Creates user in u-bahn when they sign up on Topcoder. Also updates their availability status in u-bahn based on their account activation status in Topcoder
